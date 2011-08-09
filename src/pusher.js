@@ -66,11 +66,13 @@ Pusher.prototype = {
 
   subscribeAll: function() {
     var channel;
+    var channelNames = [];
     for (channel in this.channels.channels) {
       if (this.channels.channels.hasOwnProperty(channel)) {
-        this.subscribe(channel);
+        channelNames.push(channel);
       }
     }
+    this.multiSubscribe(channelNames);
   },
 
   subscribe: function(channel_name) {
@@ -141,6 +143,7 @@ Pusher.prototype = {
    * var channel1 = channels['private-channel1'];
    */
   multiSubscribe: function(channels) {
+    var self = this;
     var channelName;
     var channel;
     var newChannels = {};
@@ -199,7 +202,8 @@ Pusher.prototype = {
     var channelName;
     for(var i = 0, l = channels.length; i < l; ++i) {
       channelName = channels[i];
-      if(Pusher.Util.startsWith(channelName)) {
+      if(Pusher.Util.startsWith(channelName, 'private-') ||
+        Pusher.Util.startsWith(channelName, 'presence-') ) {
         channelsToAuth.push(channelName);
       }
     }
@@ -235,7 +239,7 @@ Pusher.Util = {
     return target;
   },
   startsWith: function(check, startsWith){
-    return check.substring(0, startsWith.length-1) === startsWith;
+    return (check.indexOf(startsWith) === 0);
   }
 };
 
