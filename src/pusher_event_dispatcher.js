@@ -62,5 +62,9 @@ Example:
     this.dispatch_global_callbacks(event_name, data);
   };
 
-  this.Pusher.EventsDispatcher = EventsDispatcher;
-}).call(this);
+  this.EventsDispatcher = EventsDispatcher; // com.pusher.EventsDispatcher
+}).call(com.pusher.namespace("com.pusher"));
+
+if(window["Pusher"]){ // backwards compatibility
+  Pusher.EventsDispatcher = com.pusher.EventsDispatcher;
+}
