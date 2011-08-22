@@ -11,6 +11,7 @@ version '1.9.3'
 
 bundle 'pusher.js' do
   license 'pusher-licence.js'
+  file 'index.js'
   file 'pusher.js'
   file 'pusher_event_dispatcher.js'
   file 'pusher_machine.js'

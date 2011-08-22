@@ -1,12 +1,4 @@
-if (typeof Function.prototype.scopedTo === 'undefined') {
-  Function.prototype.scopedTo = function(context, args) {
-    var f = this;
-    return function() {
-      return f.apply(context, Array.prototype.slice.call(args || [])
-        .concat(Array.prototype.slice.call(arguments)));
-    };
-  };
-}
+;(function() {
 
 var Pusher = function(app_key, options) {
   this.options = options || {};
@@ -284,3 +276,9 @@ Pusher.ready = function() {
     Pusher.instances[i].connect();
   }
 };
+
+this.Pusher = Pusher;
+}).call(com.pusher.namespace("com.pusher"));
+
+// add backwards compatibility
+Pusher = com.pusher.Pusher;
